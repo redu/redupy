@@ -1,0 +1,2 @@
+simplejson==2.6.1
+rauth==0.4.14
