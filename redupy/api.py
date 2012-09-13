@@ -117,6 +117,3 @@ class Redu(object):
         method="get", payload_type="enrollment")
 
     deleteEnrollment = bind_api(path="enrollments/{0}", method="delete")
-
-client = Redu("P2AeHTJCV9Wy31Xq8IBIvOpYT1lhbluqvFh8RPdB",
-        "SInt2l80rnhz8YkP3zt5ThvKmeb4Srt12EezDIVe", "keZiAfespsRXlZNS1DKe")

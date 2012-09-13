@@ -7,7 +7,7 @@ class HttpClient(object):
     def __init__(self, consumer_key, consumer_secret, pin=None):
         self.redu = OAuth2Service(
         name='redu',
-        authorize_url='http://reud.com.br/oauth/authorize',
+        authorize_url='http://redu.com.br/oauth/authorize',
         access_token_url='http://redu.com.br/oauth/token',
         consumer_key=consumer_key,
         consumer_secret=consumer_secret)
@@ -29,11 +29,11 @@ class HttpClient(object):
             headers={"Content-type": "application/json"})
 
     def get(self, url, **kargs):
-        r = self.client.get(url, **kargs).content
+        r = self.client.get(url, **kargs)
         return r
 
     def post(self, url, **kargs):
-        r = self.client.post(url, **kargs).content
+        r = self.client.post(url, **kargs)
         return r
 
     def delete(self, url, **kargs):

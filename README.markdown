@@ -1,6 +1,6 @@
 # ReduPy
 
-Esse pacote simple encapsula todas as funcionalidades da api do Redu para que o desenvolvedor não precise se preocupar como as requisições são feitas. 
+Esse pacote simple encapsula todas as funcionalidades da api do Redu para que o desenvolvedor não precise se preocupar como as requisições são feitas.
 
 Foram utilizados:
 
@@ -13,11 +13,23 @@ Foram utilizados:
 
 
 ```
-$ sudo pip install -r requirements.txt
+$ sudo pip install git+git://github.com/redu/redupy.git
 ```
 
-Copie o redupy para a pasta do seu projeto.
+## Como usar a api
+A implementação dessa biblioteca segue os mesmos padrões definidos na [documentação](http://developers.redu.com.br). Ou seja, os argumentos dos metódos possuem os mesmos nomes que foram documentados.
+Por exemplo, se está documentado que uma requisição possui um argumento 'type' e um argumento 'id', a chamada da função terá esse formato:
 
+```python
+client.nomeDaFuncao(id="um id", type="um type")
+```
+
+Para ver os detalhes de todas as funções bastar executar esse comando no interpretador python:
+
+```python
+> from redupy.api import Redu
+> help(Redu)
+```
 
 ## QuickStart
 
@@ -50,7 +62,7 @@ Só é preciso pedir o pin uma vez, depois de adquirido basta iniciar o client d
 client = Redu("yourconsumerkey", "yoursecretkey", "yourpin")
 ```
 
-Mais exemplos [aqui](https://github.com/redu/redupy/examples).
+Mais exemplos [aqui](https://github.com/redu/redupy/tree/master/examples).
 
 ## Como contribuir
 

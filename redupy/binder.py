@@ -36,13 +36,11 @@ def bind_api(**config):
             path = path.format(self.kargs.get('id', ''))
             m = getattr(self.api.client, self.method)
 
-            data = m(path, params=self.url_arg,
+            response = m(path, params=self.url_arg,
                 data=self.payload_arg)
-            retorno = None
-
+            response.raise_for_status()
+            data = response.content
             if self.payload_type:
-                if not data:
-                    raise Exception("Empty response content!, probally a 404 error")
                 json = simplejson.loads(data, encoding="UTF-8")
                 tipo = getattr(self.api.model_factory, self.payload_type)
                 retorno = tipo()
@@ -50,15 +48,27 @@ def bind_api(**config):
                     retorno = []
                     for dct in json:
                         elem = tipo()
-                        elem.parse(dct)
+                        elem.parse(dct, self.api.model_factory)
                         retorno.append(elem)
                 else:
-                    retorno.parse(json)
+                    retorno.parse(json, self.api.model_factory)
 
             return retorno
 
     def _call(api, **kargs):
         method = APIMethod(api, kargs)
         return method.execute()
+    #CODIGO PARA GERAR A DCOUMENTACAO
+    required_args = config.get('payload_params', [])
+    url = config.get('path')
+    if"{0}" in url:
+        required_args.append('id')
+    optional_args = config.get('querry_params', [])
+    return_type = config.get('payload_type', None)
+
+    _call.__doc__ = """Argumentos obrigatorios: {0}
+    Argumentos Opicionais: {1}
+    Retorna: {2}""".format(required_args,
+        optional_args, return_type)
 
     return _call
