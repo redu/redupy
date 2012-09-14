@@ -29,7 +29,7 @@ class Model(object):
         ret = u""
         for key, arg in vars(self).items():
             ret = ret + unicode.format(u"{0} : {1}\n", key, arg)
-        return ret.encode('UTF-8')
+        return ret.encode('ascii', 'replace')
 
 
 class User(Model):

@@ -7,6 +7,7 @@ Foram utilizados:
 - Python 2.7
 - Simplejson
 - Rauth
+- Requests
 
 
 ## Instalação
