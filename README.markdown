@@ -1,31 +1,30 @@
 # ReduPy
 
-Esse pacote simple encapsula todas as funcionalidades da api do Redu para que o desenvolvedor não precise se preocupar como as requisições são feitas.
+Esse pacote encapsula as funcionalidades da API REST abstraindo a lógica das requisições HTTP.
 
-Foram utilizados:
+Depedências utilizados:
 
 - Python 2.7
 - Simplejson
 - Rauth
 - Requests
 
-
 ## Instalação
 
-
-```
+```sh
 $ sudo pip install git+git://github.com/redu/redupy.git
 ```
 
 ## Como usar a api
-A implementação dessa biblioteca segue os mesmos padrões definidos na [documentação](http://developers.redu.com.br). Ou seja, os argumentos dos metódos possuem os mesmos nomes que foram documentados.
-Por exemplo, se está documentado que uma requisição possui um argumento 'type' e um argumento 'id', a chamada da função terá esse formato:
+
+A implementação da biblioteca segue os mesmos padrões definidos na [documentação](http://developers.redu.com.br). Ou seja, os argumentos dos metódos possuem os mesmos nomes que foram documentados.
+Por exemplo, se na documentação há uma requisição tipo ``GET`` onde é possível passar um parâmetro ``type`` via querystring, a chamada da função Python teria esse formato:
 
 ```python
 client.nomeDaFuncao(id="um id", type="um type")
 ```
 
-Para ver os detalhes de todas as funções bastar executar esse comando no interpretador python:
+Para ver os detalhes de todas as funções bastar usar a função ``help`` no shell interativo Python:
 
 ```python
 > from redupy.api import Redu
@@ -34,14 +33,14 @@ Para ver os detalhes de todas as funções bastar executar esse comando no inter
 
 ## QuickStart
 
-Comece criando um novo objeto Redu, fornecendo seu consumer token e secret token:
+Comece instanciando um novo objeto ``Redu``. Esse objeto recebe sua **consumer key**  e **consumer secret**. Mais instruções sobre como obte-las podem ser encontradas na [página de desenvolvedores](http://developers.redu.com.br).
 
 ```python
 from redupy.api import Redu
 client = Redu("yourconsumerkey", "yoursecretkey")
 ```
 
-Adquira o seu authpin e inicie o cliente:
+Adquira o seu PIN visitando a URL retornada por ``cluent.getAuthorizeUrl()`` e inicie o cliente:
 
 ```python
 print ("Follow this url: {0}".format(client.getAuthorizeUrl()))
@@ -55,7 +54,7 @@ Teste a autenticação com uma requisição simples, este metódo deve retornar 
 print client.getMe()
 ```
 
-*Obs:
+*Obs*:
 
 Só é preciso pedir o pin uma vez, depois de adquirido basta iniciar o client dessa maneira:
 
