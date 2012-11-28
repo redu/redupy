@@ -86,18 +86,24 @@ class Enrollment(Model):
 
 class Space(Model):
     def __init__(self):
-        super(Space, self).__init__
+        super(Space, self).__init__()
         self.name = None
         self.description = None
 
 
 class Course(Model):
     def __init__(self):
-        super(Course, self).__init__
+        super(Course, self).__init__()
         self.name = None
         self.created_at = None
         self.workload = None
         self.path = None
+
+
+class ChatMessage(Model):
+    def __init__(self):
+        super(ChatMessage, self).__init__()
+        self.message = None
 
 
 class ModelFactory(object):
@@ -108,3 +114,5 @@ class ModelFactory(object):
     status = Status
     environment = Environment
     subject = Subject
+    chat = Model
+    chat_message = ChatMessage

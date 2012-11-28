@@ -117,3 +117,14 @@ class Redu(object):
         method="get", payload_type="enrollment")
 
     deleteEnrollment = bind_api(path="enrollments/{0}", method="delete")
+
+    getChatsByUser = bind_api(path='users/{0}/chats', method='get',
+        payload_type='chat')
+
+    getChat = bind_api(path='chats/{0}', method='get', payload_type='chat')
+
+    getChatMessagesByChat = bind_api(path='chats/{0}/chat_messages', method='get',
+        payload_type='chat_message')
+
+    getChatMessage = bind_api(path='chat_messages/{0}', method='get',
+        payload_type='chat_message')

@@ -58,7 +58,8 @@ def bind_api(**config):
     def _call(api, **kargs):
         method = APIMethod(api, kargs)
         return method.execute()
-    #CODIGO PARA GERAR A DCOUMENTACAO
+
+    # Codigo para gerar o help dinamico
     required_args = config.get('payload_params', [])
     url = config.get('path')
     if"{0}" in url:
