@@ -1,8 +1,33 @@
+# -*- coding: latin-1 -*-
 import simplejson
+
+# Helper para construir os metódos de chamada de api, recebe os parâmetros de
+# configuração na forma de um dicionario e retorna um metódo baseado nesses
+# parâmetros.
+#
+# Configurações possíveis:
+#
+# path - A url parcial do recurso com um formatador no lugar do id.
+#        Por exemplo: 'users/{0}'.
+#
+# method - O verbo da requisicao html: 'get', 'post', 'put' ou 'delete'.
+#
+# querry_params - Lista de strings que representa os nomes dos parâmetros que
+#                 são aceitos via querry string, por exemplo:
+#                 ['type', 'page'].
+#
+# payload_params - Lista de strings que representa os nomes dos parâmetros que
+#                  são aceitos na payload da requisição, por exemplo:
+#                  ['name', 'description'].
+#
+# payload_type - Uma String que representa o tipo de recurso retornado,
+#
+# send_type - Uma String que representa o tipo de recurso enviado
 
 
 def bind_api(**config):
 
+    # Classe dinâmica que representa um metódo de requisição da api
     class APIMethod(object):
 
         path = config['path']
@@ -17,10 +42,12 @@ def bind_api(**config):
             self.kargs = kargs
             self.build_params()
 
+        # Constrói os argumentos da requisição, tanto o payload quanto o
+        # querry-string
         def build_params(self):
             tempDict = {}
             for param in self.querry_params:
-                if self.kargs.get(param):
+                if self.kargs.get(param):  # Se o parametro foi passado
                     tempDict[param] = self.kargs[param]
             self.url_arg = tempDict
             tempDict = {}
@@ -38,6 +65,7 @@ def bind_api(**config):
 
             response = m(path, params=self.url_arg,
                 data=self.payload_arg)
+
             response.raise_for_status()
             data = response.content
             if self.payload_type:
@@ -55,6 +83,9 @@ def bind_api(**config):
 
             return retorno
 
+    # Metódo retornado pelo bind_api, vai receber os argumentos que foram
+    # definidos pelo binder via o **kargs e api é o argumento implicito(self) da
+    # classe que definir esse metódo
     def _call(api, **kargs):
         method = APIMethod(api, kargs)
         return method.execute()
